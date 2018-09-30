@@ -24,12 +24,11 @@ if (window.addEventListener &&
       timer = timer || setTimeout(function() {
         timer = null;
         inView();
-      }, 300);
+      }, 500);
     }
 
     function inView() {
-      console.log(pItem, pItem.length)
-      if (pItem.length) requestAnimationFrame(function() {
+      if (pItem && pItem.length) {
         var wT = window.pageYOffset, wB = wT + window.innerHeight, cRect, pT, pB, p = 0;
         while (p < pItem.length) {
           cRect = pItem[p].getBoundingClientRect();
@@ -39,40 +38,32 @@ if (window.addEventListener &&
           if (wT < pB && wB > pT) {
             loadFullImage(pItem[p]);
           }
-          else p++;
+          p++;
         }
         pCount = pItem.length;
-      });
+      };
     }
 
     function loadFullImage(item) {
+
       var fullImg = item.getAttribute('data-full-image');
+      if (!fullImg || !item) return;
       var img = new Image();
       img.src = fullImg;
-      img.className = 'reveal';
       if (img.complete) addImg();
       else img.onload = addImg;
-      console.log("gete");
 
       // replace image
       function addImg() {
-
-        requestAnimationFrame(function() {
-
-          // preview image
-          var pImg = item.src
-
-          // add full image
-          item.insertBefore(img).addEventListener('animationend', function() {
-            // remove preview image
-            if (item) {
-              img.alt = item.alt || '';
-              item.parentNode.removeChild(item);
-            }
-          });
-
-        });
-      }
+        // add full image
+        item.parentNode.insertBefore(img, item);
+        // remove preview image
+        if (item) {
+          img.alt = item.alt || '';
+          img.width = item.width;
+          item.parentNode.removeChild(item);
+        };
+    }
     }
   }, false);
 }

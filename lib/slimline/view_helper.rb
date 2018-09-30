@@ -16,7 +16,12 @@ module Slimline
       data_options = data_options.merge(slimline: true)
 
       options = options.merge(data: data_options)
-      options = options.merge(style: style)
+
+      if small_image
+        data_options = data_options.merge('full-image' => image_url(source) )
+        options = options.merge(style: "#{style} filter: blur(2vw);  transform: scale(1.05);")
+        return image_tag(small_image, options)
+      end
       image_tag(source, options)
     end
   end
