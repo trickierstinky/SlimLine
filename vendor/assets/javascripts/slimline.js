@@ -28,7 +28,7 @@ if (window.addEventListener &&
     }
 
     function inView() {
-      if (pItem && pItem.length) {
+      if (pItem && pItem.length) requestAnimationFrame(function() {
         var wT = window.pageYOffset, wB = wT + window.innerHeight, cRect, pT, pB, p = 0;
         while (p < pItem.length) {
           cRect = pItem[p].getBoundingClientRect();
@@ -41,7 +41,7 @@ if (window.addEventListener &&
           p++;
         }
         pCount = pItem.length;
-      };
+      });
     }
 
     function loadFullImage(item) {
@@ -56,17 +56,20 @@ if (window.addEventListener &&
 
       // replace image
       function addImg() {
-        // add full image
-        item.parentNode.insertBefore(img, item);
-        // remove preview image
-        if (item) {
-          img.alt = item.alt || '';
-          img.width = item.width;
-          item.parentNode.removeChild(item);
-        };
+        requestAnimationFrame(function() {
+          // add full image
+          item.parentNode.insertBefore(img, item).addEventListener('animationend', function() {
+            // remove preview image
+            if (item) {
+              img.alt = item.alt || '';
+              img.width = item.width;
+              item.parentNode.removeChild(item);
+            };
 
-        img.classList.remove('reveal')
-    }
+            img.classList.remove('reveal');
+          });
+        });
+      }
     }
   }, false);
 }
