@@ -50,6 +50,7 @@ if (window.addEventListener &&
       if (!fullImg || !item) return;
       var img = new Image();
       img.src = fullImg;
+      img.className = 'reveal'
       if (img.complete) addImg();
       else img.onload = addImg;
 
@@ -63,6 +64,8 @@ if (window.addEventListener &&
           img.width = item.width;
           item.parentNode.removeChild(item);
         };
+
+        img.classList.remove('reveal')
     }
     }
   }, false);
