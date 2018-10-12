@@ -25,7 +25,7 @@ Once installed to make sure that your images still work when javascript isn't ac
 class="<%= slimline_js_check_class %>"
 ```
 
-Then in the `<html>` section before any css rendering enter:
+Then in the `<head>` section before any css rendering enter:
 ```erb
   <%= slimline_js_check %>
 ```
