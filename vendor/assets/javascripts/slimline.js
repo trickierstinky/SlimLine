@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
-  let lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
-  let active = false;
+  var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+  var active = false;
 
-  const lazyLoad = function() {
+  var lazyLoad = function() {
     if (active === false) {
       active = true;
 
