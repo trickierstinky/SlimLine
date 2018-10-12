@@ -12,6 +12,3 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
-
-gem 'rmagick', '~> 2.15', '>= 2.15.4'
-

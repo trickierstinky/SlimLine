@@ -1,17 +1,8 @@
- img.preview {
+ img.lazy {
   filter: blur(2vw);
   transform: scale(1.05);
 }
 
-img.reveal {
-  position: absolute;
-  left: 0;
-  top: 0;
-  will-change: transform, opacity;
-  animation: progressiveReveal 1s ease-out;
-}
-
-@keyframes progressiveReveal {
-	0% { transform: scale(1.05); opacity: 0; }
-	100% { transform: scale(1); opacity: 1; }
+.no-js .lazy {
+  display: none;
 }

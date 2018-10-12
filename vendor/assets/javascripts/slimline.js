@@ -1,74 +1,36 @@
-if (window.addEventListener &&
-    window.requestAnimationFrame &&
-    document.getElementsByClassName) {
-  window.addEventListener('load', function() {
-    var pItem = document.querySelectorAll('[data-slimline]'), pCount, timer;
+document.addEventListener("DOMContentLoaded", function() {
+  let lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+  let active = false;
 
-    window.addEventListener('scroll', scroller, false);
-    window.addEventListener('resize', scroller, false);
+  const lazyLoad = function() {
+    if (active === false) {
+      active = true;
 
+      setTimeout(function() {
+        lazyImages.forEach(function(lazyImage) {
+          if ((lazyImage.getBoundingClientRect().top <= window.innerHeight && lazyImage.getBoundingClientRect().bottom >= 0) && getComputedStyle(lazyImage).display !== "none") {
+            lazyImage.src = lazyImage.dataset.src;
+            lazyImage.srcset = lazyImage.dataset.srcset;
+            lazyImage.classList.remove("lazy");
 
-  // DOM mutation observer
-  if (MutationObserver) {
-    var observer = new MutationObserver(function() {
-      if (pItem.length !== pCount) inView();
-    });
-    observer.observe(document.body, { subtree: true, childList: true, attributes: true, characterData: true });
-  }
+            lazyImages = lazyImages.filter(function(image) {
+              return image !== lazyImage;
+            });
 
-    // initial check
-    inView();
-
-    // throttled scroll/resize
-    function scroller() {
-      timer = timer || setTimeout(function() {
-        timer = null;
-        inView();
-      }, 500);
-    }
-
-    function inView() {
-      if (pItem && pItem.length) {
-        var wT = window.pageYOffset, wB = wT + window.innerHeight, cRect, pT, pB, p = 0;
-        while (p < pItem.length) {
-          cRect = pItem[p].getBoundingClientRect();
-          pT = wT + cRect.top;
-          pB = pT + cRect.height;
-
-          if (wT < pB && wB > pT) {
-            loadFullImage(pItem[p]);
+            if (lazyImages.length === 0) {
+              document.removeEventListener("scroll", lazyLoad);
+              window.removeEventListener("resize", lazyLoad);
+              window.removeEventListener("orientationchange", lazyLoad);
+            }
           }
-          p++;
-        }
-        pCount = pItem.length;
-      };
+        });
+
+        active = false;
+      }, 200);
     }
+  };
 
-    function loadFullImage(item) {
-
-      var fullImg = item.getAttribute('data-full-image');
-      if (!fullImg || !item) return;
-      var img = new Image();
-      img.src = fullImg;
-      img.className = 'reveal'
-      if (img.complete) addImg();
-      else img.onload = addImg;
-
-      // replace image
-      function addImg() {
-        // add full image
-        item.parentNode.insertBefore(img, item);
-        // remove preview image
-        if (item) {
-          img.alt = item.alt || '';
-          img.width = item.width;
-          item.parentNode.removeChild(item);
-        };
-
-        img.classList.remove('reveal')
-    }
-    }
-  }, false);
-}
-
-
+  document.addEventListener("scroll", lazyLoad);
+  window.addEventListener("resize", lazyLoad);
+  window.addEventListener("orientationchange", lazyLoad);
+});
