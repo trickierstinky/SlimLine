@@ -1,4 +1,5 @@
 # Slimline
+[![Gem Version](https://badge.fury.io/rb/slimline.svg)](https://badge.fury.io/rb/slimline)
 A small basic helper to allow progressively loading images, Nothing really special this was done more as a test to myself to create a rails gem :)
 
 ## Installation

@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Slimline::VERSION
   s.authors     = ["Matthew Deloughry"]
   s.email       = ["matt@deloughry.com"]
-  s.homepage    = "https://deloughry.co.uk"
+  s.homepage    = "https://github.com/trickierstinky/SlimLine"
   s.summary     = "Give a nice helper to progressively load images"
   s.description = "Give a nice helper to progressively load images"
   s.license     = "MIT"
