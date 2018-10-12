@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    slimline (0.1.4)
+    slimline (0.1.5)
       rails
 
 GEM

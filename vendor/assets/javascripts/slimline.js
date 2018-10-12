@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
             lazyImage.src = lazyImage.dataset.src;
             if (lazyImage.dataset.srcset) {
               lazyImage.srcset = lazyImage.dataset.srcset;
+              lazyImage.removeAttribute("data-srcset");
             }
             lazyImage.classList.remove("lazy");
 

@@ -10,7 +10,7 @@ module Slimline
 
     def slimline_js_check
       content_tag :script do
-        raw 'console.log("done"); document.documentElement.classList.remove("slimline-no-js");'
+        raw 'document.documentElement.classList.remove("slimline-no-js");'
       end
     end
 
