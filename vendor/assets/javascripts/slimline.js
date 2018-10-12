@@ -9,10 +9,15 @@ document.addEventListener("DOMContentLoaded", function() {
       setTimeout(function() {
         lazyImages.forEach(function(lazyImage) {
           if ((lazyImage.getBoundingClientRect().top <= window.innerHeight && lazyImage.getBoundingClientRect().bottom >= 0) && getComputedStyle(lazyImage).display !== "none") {
+
             lazyImage.src = lazyImage.dataset.src;
             if (lazyImage.dataset.srcset) {
               lazyImage.srcset = lazyImage.dataset.srcset;
               lazyImage.removeAttribute("data-srcset");
+            }
+            if (lazyImage.dataset.sizes) {
+              lazyImage.sizes = lazyImage.dataset.sizes;
+              lazyImage.removeAttribute("data-sizes");
             }
             lazyImage.classList.remove("lazy");
 

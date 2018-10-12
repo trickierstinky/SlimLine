@@ -17,6 +17,7 @@ module Slimline
     def slimline_image_tag(source, options = {} )
       small_image = options.delete(:small_image)
       srcset = options.delete(:srcset)
+      sizes = options.delete(:sizes)
       data_options = options.delete(:data) || {}
       new_options = options
 
@@ -30,6 +31,7 @@ module Slimline
       end
 
       data_options = data_options.merge('srcset' => srcset) if srcset
+      data_options = data_options.merge('sizes' => sizes) if sizes
 
       new_options = new_options.merge(data: data_options)
 
