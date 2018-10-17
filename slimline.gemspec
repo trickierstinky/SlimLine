@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = "A small basic helper to allow progressively loading images, Nothing really special this was done more as a test to myself to create a rails gem :)"
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  s.files = Dir["{app,config,db,lib,vendor}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "rails" , ">= 3.1.0"
 
